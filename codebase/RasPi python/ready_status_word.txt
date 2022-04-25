@@ -1,0 +1,54 @@
+115,200 baud ->(~10bits per msg)-> 11,520 -> every 86us * 7 (length) = 607.6us
+
+ready ffffxxxx
+BNO not ready 0000xxxx
+event horizon ff0[y]xxxx
+	y = # of times horizon has been called
+
+x	open
+psfa	thrusters on/off
+leak	water leak detected
+log	el or az thruster logic
+thr	"call_threads" function active
+com	"commands" function active
+d	depth zer/cal			0 unset, 1 set
+pos	BNO position(size:3)		[0,7]
+
+0000	0,  0,  0,   0		0,0,0,0		0,000
+[x]	leak,log,thr,com		p,s,f,a		d,[pos]
+			
+
+Commands
+hea [0,360]		831-837		- / +
+pit [0,360]		811-817		- / +
+dep [0,820]		821-827		- / +
+vel [0,800]		841-847		- / +
+
+sto 000			stop all thrusters
+tst 			thruster test modes
+	mode 0,1	0
+				1
+	dir 1,2		1 positive direction
+				2 reverse direction
+	move 
+
+pos [0,7]		BNO position
+res 000			reset
+zer 000			zeroize press						h
+
+
+------DEPRECATED (commented out in code)-------
+
+fa	forward/aft thrusters(size:3)	see below
+ps	port/star thrusters(size:3)	see below
+
+f	8	8	f
+
+					turn port	turn star
+stop	both-rev,	both-fwd	l-fwd/r-rev	l-rev/r-fwd	
+000	100		111		110		101
+					f-fwd/a-rev	f-rev/a-fwd
+					pitch fwd	pitch back
+
+
+                thruster1.start(callback(Stbd_thread, &speed));

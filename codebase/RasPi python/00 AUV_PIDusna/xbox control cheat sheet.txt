@@ -1,0 +1,76 @@
+
+xbox layout
+left analogue	y	speed
+				x	unused* will implement for facing/strafing like surface later
+				centered	stop speed controller
+right analogue	y	depth	+/-
+				x	heading +/-
+
+left analoge press		stop heading controller
+right analogue press	stop depth controller
+right && left analogue		stop all controllers (speed,heading,depth,pitch)
+
+left shoulder		pitch -
+right shoulder		pitch +
+left && right sh	stop pitch controller
+
+left trigger		reserved for roll-
+right trigger		reserved for roll+
+left && right tr	reserved for stop roll controller
+
+a				
+b				
+x					
+y
+x && y				zeroize depth
+
+dpad		up		come to surface
+			down
+			left
+			right
+
+
+abxy+all dpad		Event Horizon
+
+
+start+select		reset mbed
+
+left x		3-9
+left y		13-19
+right x		24-30
+right y		34-40
+dpadup		45
+dpaddown	50
+dpadleft	55
+dpadright	60
+back		68
+guide		76
+start		84
+L thumb		90
+R thumb		95
+A			100
+B			104
+X			108
+Y			112
+L bump		118
+R bump		123
+L trigger	129-132
+R trigger	136-139
+
+
+
+
+
+
+output:
+1FFFFF
+
+
+
+
+
+
+
+
+
+

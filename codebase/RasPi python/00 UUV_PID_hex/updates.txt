@@ -1,0 +1,40 @@
+UUV 4 to 6
+
+// Instantiate thrusters.
+Thruster fwd_port(p21,1);
+Thruster fwd_star(p22,-1);
+Thruster aft_port(23,-1);
+Thruster aft_star(24,1);
+Thruster fore_thrust(p25,1);
+Thruster aft_thrust(p26,-1);
+
+    status[7]=((fwd_port.thruster_data() & 0x00ffffff) | 0xf1000000);
+    status[8]=((fwd_star.thruster_data() &0x00ffffff) | 0xf2000000);
+    status[9]=((aft_port.thruster_data() & 0x00ffffff) | 0xf3000000);
+    status[10]=((aft_star.thruster_data() & 0x00ffffff) | 0xf4000000);
+    status[11]=((fore_thrust.thruster_data() & 0x00ffffff) | 0xf5000000);
+    status[12]=((aft_thrust.thruster_data() & 0x00ffffff) | 0xf6000000);
+
+    status[13]= 0xd1100000 + k_data(heading_Kp);    //Kp
+    status[14]= 0xd1200000 + k_data(pitch_Kp);  //Kp
+    status[15]= 0xd1300000 + k_data(depth_Kp);  //Kp
+
+
+fwd_port_pw
+fwd_star_pw
+aft_port_pw
+aft_star_pw
+fore_pw
+aft_pw
+
+
+
+    pf_key=0xf100
+    sf_key=0xf200
+    pa_key=0xf300
+    sa_key=0xf400
+    fore_key=0xf500
+    aft_key=0xf600
+
+
+

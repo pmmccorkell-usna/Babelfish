@@ -1,0 +1,60 @@
+Raw Serial Commands.
+Entry into Python interface(s) will make a lot of this transparent and perform calculations to simplify user experience.
+
+Movement
+	sto:000		stops all controllers.
+				xyz can be anything, convention is 000
+	rol:xyz		xyz=[0,360] degrees
+					xyz=999 stops pitch controller
+					[801,807] left/right
+	pit:xyz		xyz=[0,360] degrees
+					xyz=999 stops pitch controller
+					[811,817] nose down/up
+	dep:xyz		xyz=[0,820] cm
+					xyz=999 stops depth controller
+					[821,827] up/down
+	hea:xyz		xyz=[000,360] degrees
+					xyz=999 stops heading controller, 
+					[831,837] left/right
+	vel:xyz		xyz=[0,800] ms PWM represents [1.1,1.9]ms
+					xyz=999 stops speed controller
+					[841,847] speed decrease/increase
+	off:xyz		xyz=[0,360] degrees
+					xyz=999 stops heading offset
+					[851,857] offset left/right
+
+Gains
+	format: xy * 10^(z-5)
+	Heading
+		hkp:xyz
+		hki:xyz
+		hkd:xyz
+	Depth
+		dkp:xyz
+		dki:xyz
+		dkd:xyz
+	Pitch
+		pkp:xyz
+		pki:xyz
+		pkd:xyz
+
+
+BNO
+	pos:00x		x[0,7], changes BNO programmed orientation (see datasheet)
+
+Press Sensor
+	zero:000	zeroize / sets atmospheric pressure to current reading
+				xyz can be anything, convention is 000
+
+mBed
+	res:000		resets mBed
+				xyz can be anything, convention 000
+
+	tst:xyz		performed preset movements
+				just ignore this shit... i dont remember how it works and it's no longer useful
+				x: mode
+					0	runs for 3s in each direction (y can be anything)
+					1	runs indefinitely in specified direction
+				y: direction
+				z: movement
+

@@ -1,0 +1,117 @@
+import time
+import serial
+import threading
+import logging
+import logging.handlers
+from datetime import datetime
+import json
+
+#                       #
+#------Serial Setup-----#
+#                       #
+ser=serial.Serial(
+    port='/dev/ttyACM0',
+    baudrate=115200,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout=1
+    )
+	
+	
+#                       #
+#-----Logging Setup-----#
+#                       #
+#filename = datetime.now().strftime('./log/AUV_%Y%m%d_%H:%M:%s.log')
+filename=datetime.now().strftime('/var/www/auv_logs/AUV_%Y%m%d_%H:%M:%s.log')
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+format = logging.Formatter('%(asctime)s : %(message)s')
+file_handler = logging.FileHandler(filename)
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(format)
+log.addHandler(file_handler)
+
+
+Some example code....
+
+    writeline=('res:000').encode()
+	ser.write(writeline)
+
+
+
+    writeline=(prefix+str(i)).encode()
+    ser.write(writeline)
+    log.info("Raspi command sent: "+writeline.decode())
+	
+	
+	
+	delimiter=':|:'
+    logline='KEY: heading:|:roll:|:pitch:|:BNO cal:|:status:|:depth:|:port pw:|:starboard pw:|:fore pw:|:aft pw:|:H gain:|:P gain:|:D gain'
+	log.info(logline)
+
+
+	ser.send_break() #commonly resets the connected device, ie mbed
+
+
+
+# Put function that reads serial ( get_angles() ) in its own thread separate from main()
+def start_serial_thread():
+    ReadSerial_thread=threading.Thread(target=get_angles,args=())
+    ReadSerial_thread.start()
+
+# Check if your data is a Hexadecimal integer
+def isHex(string):
+    try:
+        int(string,base=16)
+        return True
+    except ValueError:
+        return False
+
+# Like above, but decimal
+def isInt(string):
+    try: 
+        int(string)
+        return True
+    except ValueError:
+        return False
+
+
+def get_angles():
+	# Do nothing until there's serial data to receive
+	while (ser.inWaiting==0):
+		time.sleep(0.005)
+	in_buffer=ser.readline()
+	length=len(in_buffer)
+	
+	
+	# Error checking, formating via slicing, int vs string, etc.
+	if (length==word_size):
+		str_buffer_prefix=in_buffer[0:2].decode()+in_buffer[2:4].decode()
+		##print("prefix: "+str(str_buffer_prefix))
+		if isHex(str_buffer_prefix):
+			int_buffer_prefix=int(str_buffer_prefix,base=16)
+		str_buffer_data=in_buffer[4:6].decode()+in_buffer[6:8].decode()
+		##print("str prefix: " + str(str_buffer_prefix)+ ", data: "+str(str_buffer_data))
+		if isHex(str_buffer_data):
+			int_buffer_data=int(str_buffer_data,base=16)
+		##print("int prefix: " + str(hex(int_buffer_prefix)) + ", data: " + str(hex(int_buffer_data)))
+	
+	# Look for a specific instance of a serial string that starts with "log", and throw it in the logfile
+	elif (in_buffer[0:3].decode()=='log'):
+		log.info(in_buffer[0:(length-2)].decode())
+	else:
+		log.debug(in_buffer[0:(length-2)].decode())
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
