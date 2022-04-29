@@ -1,3 +1,1 @@
-<!--- 
-![picture](https://github.com/pmmccorkell-usna/309-turret/blob/main/pan-tilt/PXL_20220418_195309403.jpg)
---->
+![picture](https://github.com/pmmccorkell-usna/Babelfish/blob/main/media/vlcsnap-2021-11-17-06h50m32s939.png)
